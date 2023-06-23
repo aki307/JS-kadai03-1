@@ -17,9 +17,10 @@ taskSubmit.addEventListener('click', function(event) {
         </th>
       </tr>
       `;
-  if(tasks.length == 1){
+  if (tasks.length == 1) {
     taskTable.insertAdjacentHTML('beforeend', displayTasks);
-  } else{
+  }
+  else {
     taskTable.insertAdjacentHTML('beforeend', displayTasks);
   }
 });
