@@ -18,14 +18,34 @@ taskSubmit.addEventListener('click', function(event) {
   displayTasksHTML += `
         <th>${tasks.length}</th>
         <th>${newTask}</th>
-        <th> 
-          <button type="button" class="working-button${tasks.length}">作業中</button>
-          <button type="button" class="delete-button delete-execution${tasks.length}">削除</button>
-        </th>
       `;
 
   const newRow = document.createElement("tr");
   newRow.innerHTML = displayTasksHTML;
+  const statusButton = document.createElement("button");
+  statusButton.type = "button";
+  statusButton.id = `working-button${tasks.length}`;
+  statusButton.textContent = "作業中";
+  statusButton.addEventListener("click", () => {
+    // ここは記入予定
+  });
+
+  const deleteButton = document.createElement("button");
+  deleteButton.type = "button";
+  deleteButton.id = `delete-button${tasks.length}`;
+  deleteButton.textContent = "削除";
+  deleteButton.addEventListener("click", () => {
+    // 削除ボタンがクリックされた時の処理
+
+    if (deleteButton.id) {
+      deleteTask();
+      console.log('押されました');
+    }
+  });
+  const ButtonCell = document.createElement("th");
+  ButtonCell.appendChild(statusButton);
+  ButtonCell.appendChild(deleteButton);
+  newRow.appendChild(ButtonCell);
   if (!tBody) {
 
     tBody.appendChild(newRow);
@@ -37,27 +57,24 @@ taskSubmit.addEventListener('click', function(event) {
 
 });
 
-document.addEventListener('click', function(event) {
-  if (event.target.classList.contains('delete-button')) {
-    const rowToRemove = event.target.closest('tr');
-    if (rowToRemove) {
-      const thElement = rowToRemove.querySelector('th');
-      if (thElement) {
-        const taskIndex = parseInt(thElement.textContent);
-        console.log(taskIndex);
-        let targetIndex = tasks.findIndex(task => task.id === taskIndex);
-        if (targetIndex !== -1) {
-          tasks.splice(targetIndex, 1);
-        }
-        rowToRemove.remove();
-
-        updateTaskIDs(taskIndex);
-        displayTasks();
+function deleteTask() {
+  const rowToRemove = event.target.closest('tr');
+  if (rowToRemove) {
+    const thElement = rowToRemove.querySelector('th');
+    if (thElement) {
+      const taskIndex = parseInt(thElement.textContent);
+      console.log(taskIndex);
+      let targetIndex = tasks.findIndex(task => task.id === taskIndex);
+      if (targetIndex !== -1) {
+        tasks.splice(targetIndex, 1);
       }
+      rowToRemove.remove();
+
+      updateTaskIDs(taskIndex);
+      displayTasks();
     }
   }
-});
-
+}
 
 function updateTaskIDs(deletedIndex) {
   const taskRows = taskTable.querySelectorAll('tbody tr');
