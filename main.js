@@ -42,10 +42,10 @@ taskSubmit.addEventListener('click', function(event) {
       console.log('押されました');
     }
   });
-  const ButtonCell = document.createElement("th");
-  ButtonCell.appendChild(statusButton);
-  ButtonCell.appendChild(deleteButton);
-  newRow.appendChild(ButtonCell);
+  const buttonCell = document.createElement("th");
+  buttonCell.appendChild(statusButton);
+  buttonCell.appendChild(deleteButton);
+  newRow.appendChild(buttonCell);
   if (!tBody) {
 
     tBody.appendChild(newRow);
